@@ -1,1 +1,27 @@
+name: Plugin-Gemini Auto-Verify & Sync
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  verify-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Plugin-Gemini
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install & Syntax Check
+        run: |
+          npm install
+          node -c netlify/functions/plugin-gemini.js
+          node -c plugins/core_tools.js
+          node -e "JSON.parse(require('fs').readFileSync('plugins/manifest.json'))"
+          echo "Plugin-Gemini Verified Successfully!"
 
