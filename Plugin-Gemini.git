@@ -1,0 +1,10 @@
+
+# เปลี่ยนเส้นทาง origin เดิมให้ชี้ไปที่ TPSGroup-ti/Plugin-Gemini
+git remote set-url origin https://github.com/TPSGroup-ti/Plugin-Gemini.git
+
+# หรือถ้าอยากเก็บเส้นทางเก่าไว้ด้วย ให้เพิ่มเส้นทางใหม่ชื่อ tps แทน
+git remote add tps https://github.com/TPSGroup-ti/Plugin-Gemini.git
+
+# ส่งโค้ดทั้งหมดขึ้นไปตามเส้นทางใหม่ทันที
+git push -u origin main
+# (ถ้าใช้ข้อสอง ให้รัน: git push -u tps main)
