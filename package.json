@@ -1,1 +1,13 @@
+{
+  "name": "plugin-gemini",
+  "version": "1.0.0",
+  "description": "Plugin-Gemini Borderless World & Public AI Spawner by TPS Group",
+  "scripts": {
+    "build": "node -e \"console.log('Plugin-Gemini Build Ready')\""
+  },
+  "dependencies": {
+    "@google/genai": "^0.1.2",
+    "google-auth-library": "^9.14.1"
+  }
+}
 
