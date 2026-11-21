@@ -7,3 +7,26 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# 1. เส้นทางหลักเรียกใช้งาน Plugin-Gemini
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# 2. เพิ่มเส้นทางลัดสำหรับดึงไฟล์ manifest/ปลั๊กอินจาก GitHub TPSGroup-ti โดยตรง
+[[redirects]]
+  from = "/github-plugins/*"
+  to = "https://raw.githubusercontent.com/TPSGroup-ti/Plugin-Gemini/main/plugins/:splat"
+  status = 200
+  force = true
+
+# 3. เพิ่มเส้นทางสำรองกรณีหน้าเว็บเรียกชื่อฟังก์ชันเดิม (gemini-plugin) ให้วิ่งเข้า plugin-gemini อัตโนมัติ
+[[redirects]]
+  from = "/.netlify/functions/gemini-plugin"
+  to = "/.netlify/functions/plugin-gemini"
+  status = 200
+  force = true
