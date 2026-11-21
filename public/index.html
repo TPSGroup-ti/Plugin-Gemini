@@ -1,1 +1,559 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini Borderless World | Plugin-Gemini by TPS Group</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    .hero-bg {
+      background: radial-gradient(circle at 80% 30%, #1e293b 0%, #0b1120 45%, #060913 100%);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased">
+
+  <!-- ================= HERO & NAVBAR SECTION (ตามภาพต้นแบบ) ================= -->
+  <div class="hero-bg text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-30 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="max-w-7xl mx-auto px-6 py-5 flex flex-wrap items-center justify-between gap-4 relative z-10">
+      <div class="flex items-center gap-8">
+        <a href="#" onclick="resetView()" class="flex items-center gap-2 text-2xl font-bold tracking-tight">
+          <span class="text-cyan-400 text-3xl">✦</span>
+          <span>Gemini</span>
+        </a>
+        <ul class="hidden md:flex items-center gap-4 text-xs font-semibold tracking-wider text-slate-300">
+          <li><a href="#about-section" class="hover:text-cyan-400 transition">ABOUT</a></li>
+          <li class="text-slate-600">•</li>
+          <li><a href="#products-section" onclick="openLoginModal()" class="hover:text-cyan-400 transition">PRODUCTS</a></li>
+          <li class="text-slate-600">•</li>
+          <li><a href="#services-section" onclick="openLoginModal()" class="hover:text-cyan-400 transition">SERVICES</a></li>
+          <li class="text-slate-600">•</li>
+          <li><a href="#contact-footer" class="hover:text-cyan-400 transition">CONTACT</a></li>
+          <li class="text-slate-600">•</li>
+          <li>
+            <button id="nav-login-btn" onclick="openLoginModal()" class="text-cyan-400 hover:text-white uppercase font-bold transition">
+              LOGIN
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Search Box -->
+      <div class="flex items-center bg-slate-800/80 border border-slate-700 rounded-full px-3 py-1.5 w-64">
+        <input type="text" id="top-search" placeholder="Search capabilities..." class="bg-transparent text-xs text-white focus:outline-none flex-1 px-2">
+        <button onclick="openLoginModal()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+          🔍
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Hero Content -->
+    <div class="max-w-7xl mx-auto px-6 pt-6 pb-14 relative z-10">
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-3">
+        Welcome to Gemini Borderless World
+      </h1>
+      <p class="text-slate-300 text-sm md:text-base max-w-2xl mb-10">
+        Explore, Create, and Collaborate Across the Globe with Gemini AI — Seamless, Secure, and Limitless.
+      </p>
+
+      <!-- ================= 1. ก่อน LOGIN: ภาพความสามารถ Gemini + รายละเอียดระบบ ================= -->
+      <div id="guest-center-view" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="glass-card rounded-2xl p-5 hover:border-cyan-400/60 transition">
+              <div class="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-4">✦</div>
+              <h3 class="font-bold text-lg mb-2">Create</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Generate ideas, content, and custom AI agents instantly with Plugin-Gemini tools.
+              </p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 hover:border-cyan-400/60 transition">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-4">🌐</div>
+              <h3 class="font-bold text-lg mb-2">Connect</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Real-time Google Search, Public APIs, and live plugin synchronization from GitHub.
+              </p>
+            </div>
+            <div class="glass-card rounded-2xl p-5 hover:border-cyan-400/60 transition">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-4">🛡️</div>
+              <h3 class="font-bold text-lg mb-2">Secure</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Enterprise-grade Google OAuth 2.0 & serverless API Key isolation.
+              </p>
+            </div>
+          </div>
+
+          <!-- AI DEVELOPMENT Box -->
+          <div class="glass-card rounded-xl p-4 flex items-center justify-between max-w-md">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-sm">AI</div>
+              <div>
+                <div class="text-[10px] font-bold text-cyan-400 tracking-wider uppercase">AI DEVELOPMENT</div>
+                <div class="text-xs text-slate-200">Bring your ideas to life with Gemini — the future of AI is borderless.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ฝั่งขวา: ภาพประกอบ Gemini Ecosystem + รายละเอียดระบบ -->
+        <div class="lg:col-span-5 flex flex-col items-center text-center">
+          <div class="glass-card rounded-2xl p-6 w-full">
+            <svg viewBox="0 0 360 200" class="w-full h-40 mb-3">
+              <defs>
+                <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <circle cx="180" cy="100" r="80" fill="url(#coreGlow)"/>
+              <circle cx="180" cy="100" r="52" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <circle cx="180" cy="100" r="30" fill="#0f172a" stroke="#22d3ee" stroke-width="2.5"/>
+              <text x="180" y="107" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="bold">♊</text>
+              
+              <rect x="20" y="20" width="90" height="26" rx="6" fill="#1e293b" stroke="#38bdf8"/>
+              <text x="65" y="37" text-anchor="middle" fill="#e2e8f0" font-size="10">Google Search</text>
+              <line x1="110" y1="33" x2="154" y2="82" stroke="#38bdf8" stroke-width="1.5"/>
+
+              <rect x="250" y="20" width="90" height="26" rx="6" fill="#1e293b" stroke="#34d399"/>
+              <text x="295" y="37" text-anchor="middle" fill="#e2e8f0" font-size="10">GitHub Sync</text>
+              <line x1="250" y1="33" x2="206" y2="82" stroke="#34d399" stroke-width="1.5"/>
+
+              <rect x="20" y="150" width="90" height="26" rx="6" fill="#1e293b" stroke="#f472b6"/>
+              <text x="65" y="167" text-anchor="middle" fill="#e2e8f0" font-size="10">Public APIs</text>
+              <line x1="110" y1="163" x2="154" y2="118" stroke="#f472b6" stroke-width="1.5"/>
+
+              <rect x="250" y="150" width="90" height="26" rx="6" fill="#1e293b" stroke="#fbbf24"/>
+              <text x="295" y="167" text-anchor="middle" fill="#e2e8f0" font-size="10">Spawn AI</text>
+              <line x1="250" y1="163" x2="206" y2="118" stroke="#fbbf24" stroke-width="1.5"/>
+            </svg>
+
+            <h4 class="font-bold text-cyan-300 text-sm mb-1">ความสามารถระบบ Plugin-Gemini Core</h4>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+              เข้าถึง Gemini 2.5 Pro/Flash, Google Search Real-time, เชื่อมต่อ Public API และสร้าง AI ตัวลูกเผยแพร่สาธารณะ พร้อมรับโค้ดติดตั้ง Plugin ทันทีหลังเข้าสู่ระบบ
+            </p>
+            <button onclick="openLoginModal()" class="bg-gradient-to-r from-cyan-400 to-pink-500 hover:opacity-90 text-slate-950 font-bold text-xs px-8 py-3 rounded-full shadow-lg tracking-wider uppercase transition">
+              EXPLORE NOW / LOGIN
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 2. หลัง LOGIN: วิธีใช้ Plugin, วิธีติดตั้ง, โค้ด Plugin & ตัวใช้งานจริง ================= -->
+      <div id="logged-in-center-view" class="hidden space-y-6">
+        <div class="glass-card rounded-2xl p-6 border-cyan-500/40">
+          <div class="flex flex-wrap justify-between items-center border-b border-slate-700 pb-4 mb-6 gap-4">
+            <div>
+              <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full">✓ เชื่อมต่อ Plugin-Gemini สำเร็จ</span>
+              <h2 class="text-xl font-bold mt-2">วิธีใช้ Plugin, วิธีติดตั้ง, โค้ดเชื่อมต่อ และศูนย์สร้าง AI</h2>
+              <p class="text-xs text-slate-400">ผู้ใช้งาน: <span id="active-user-email" class="text-cyan-400 font-semibold"></span> | GitHub Repo: <span class="text-amber-300">seperneng-spec/Plugin-Gemini</span></p>
+            </div>
+            <div class="flex items-center gap-3">
+              <select id="model-version-select" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-cyan-300">
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Standard)</option>
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Upgraded Tier)</option>
+              </select>
+              <button onclick="logout()" class="bg-rose-600/80 hover:bg-rose-600 text-white text-xs px-4 py-2 rounded-lg">ออกจากระบบ</button>
+            </div>
+          </div>
+
+          <!-- แท็บสลับดู -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            <button onclick="switchTab('docs')" id="tab-docs" class="bg-cyan-500 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg">
+              📘 วิธีใช้ Plugin, วิธีติดตั้ง & โค้ดของ Plugin
+            </button>
+            <button onclick="switchTab('studio')" id="tab-studio" class="bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-lg">
+              🚀 ใช้งาน Plugin-Gemini & สร้าง AI สาธารณะ
+            </button>
+          </div>
+
+          <!-- TAB 1: วิธีใช้ Plugin + วิธีนำไปติดตั้ง + โค้ดของ Plugin -->
+          <div id="panel-docs" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-800 space-y-4 text-xs">
+              <h3 class="text-base font-bold text-cyan-400">วิธีใช้งาน และขั้นตอนนำไปติดตั้ง</h3>
+              <ol class="list-decimal list-inside space-y-2 text-slate-300 leading-relaxed">
+                <li><strong>คัดลอกโค้ด Plugin SDK</strong> ทางด้านขวาไปวางในเว็บไซต์ แอปพลิเคชัน หรือโปรเจกต์ของท่านได้ทันที</li>
+                <li><strong>เรียกใช้งานความสามารถทั้งหมด:</strong> ส่งคำสั่งผ่าน <code class="text-cyan-300">callPluginGemini()</code> รองรับทั้ง Gemini, Google Search และ Public API</li>
+                <li><strong>อัปเดตอัตโนมัติจาก GitHub:</strong> เมื่อเพิ่มโค้ดใหม่ในโฟลเดอร์ <code class="text-amber-300">plugins/</code> บน GitHub ระบบจะดึงความสามารถมาแสดงและเปิดใช้งานทันที</li>
+                <li><strong>สร้าง AI ย่อยให้คนอื่นใช้:</strong> สลับไปแท็บ "ใช้งาน Plugin-Gemini" เพื่อสร้างผู้ช่วย AI เฉพาะทางให้ผู้อื่นใช้งานต่อได้</li>
+              </ol>
+
+              <div class="pt-3 border-t border-slate-800">
+                <h4 class="font-bold text-amber-400 mb-2">โมดูล Plugin ที่โหลดจาก GitHub ขณะนี้:</h4>
+                <ul id="github-plugin-list" class="space-y-1.5 text-slate-300"></ul>
+              </div>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 flex flex-col">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-bold text-emerald-400">โค้ดของ Plugin-Gemini (นำไปติดตั้งใช้งานได้ทันที)</span>
+                <button onclick="copyPluginCode()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1 rounded text-cyan-300">คัดลอกโค้ด</button>
+              </div>
+              <pre id="plugin-embed-code" class="text-[11px] text-slate-300 overflow-x-auto bg-slate-900 p-4 rounded-lg border border-slate-800 flex-1 leading-relaxed"></pre>
+            </div>
+          </div>
+
+          <!-- TAB 2: หน้าต่างใช้งาน Plugin-Gemini จริง + สร้าง AI ตัวลูก -->
+          <div id="panel-studio" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-slate-900/90 p-5 rounded-xl border border-slate-800 space-y-3">
+              <h3 class="font-bold text-sm text-cyan-400">+ สร้าง AI ตัวใหม่เผยแพร่สาธารณะ</h3>
+              <input type="text" id="spawn-name" placeholder="ชื่อ AI (เช่น ผู้ช่วยธุรกิจ TPS)" class="w-full p-2.5 rounded bg-slate-800 border border-slate-700 text-xs">
+              <textarea id="spawn-prompt" rows="3" placeholder="กำหนดบทบาทและความสามารถของ AI..." class="w-full p-2.5 rounded bg-slate-800 border border-slate-700 text-xs"></textarea>
+              <button onclick="createChildAI()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 rounded-lg text-xs">
+                สร้าง AI ตัวลูกทันที
+              </button>
+              <div class="pt-3 border-t border-slate-800">
+                <div class="text-xs font-bold text-slate-400 mb-2">AI ที่สร้างไว้ในระบบ (คลิกเพื่อใช้งาน):</div>
+                <div id="user-ai-list" class="space-y-2 max-h-36 overflow-y-auto text-xs"></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-slate-900/90 rounded-xl border border-slate-800 flex flex-col h-[390px]">
+              <div class="p-3 border-b border-slate-800 flex flex-wrap justify-between items-center gap-2 text-xs">
+                <span id="current-ai-label" class="font-bold text-cyan-300">AI ปัจจุบัน: Plugin-Gemini Master</span>
+                <div class="flex items-center gap-3">
+                  <input type="text" id="public-api-url" placeholder="แนบ Public API URL (ถ้ามี)..." class="bg-slate-800 border border-slate-700 rounded px-2 py-1 text-[11px] w-44">
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="checkbox" id="use-google-tools" checked class="accent-cyan-400">
+                    <span>Google Search</span>
+                  </label>
+                </div>
+              </div>
+              <div id="studio-chat-box" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
+                <div class="bg-slate-800 p-3 rounded-lg text-slate-300">พร้อมใช้งานแล้วครับ! พิมพ์คำสั่งเพื่อเรียกใช้ความสามารถของ Gemini, Google Search, Public API และโมดูลจาก GitHub ได้เลย</div>
+              </div>
+              <div class="p-3 border-t border-slate-800 flex gap-2">
+                <input type="text" id="studio-input" onkeypress="if(event.key==='Enter') runGeminiPlugin()" placeholder="พิมพ์คำสั่งถึง AI..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs focus:outline-none">
+                <button onclick="runGeminiPlugin()" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-5 py-2 rounded-lg text-xs">ส่งคำสั่ง</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MIDDLE WHITE BAR (LATEST NEWS) ================= -->
+  <section id="about-section" class="bg-white border-b border-slate-200 py-8">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+      <div>
+        <h4 class="font-bold text-sm text-slate-900 uppercase mb-1">LATEST NEWS</h4>
+        <p class="text-xs text-slate-500">Bring your ideas to life's innovation — the future of AI is borderless with Plugin-Gemini.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm text-slate-900 uppercase mb-1">LATEST NEWS</h4>
+        <p class="text-xs text-slate-500">GitHub Live Sync & Google OAuth 2.0 Integration ready for public developers.</p>
+      </div>
+      <div class="md:text-right">
+        <h4 class="font-bold text-sm text-slate-900 uppercase">BEAUTIFUL, INNOVATIVE & EFFECTIVE WEBSITES WITH BOX THEME</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DARK FOOTER (TPS Group) ================= -->
+  <footer id="contact-footer" class="bg-[#0b1120] text-slate-300 py-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-xs">
+      <div>
+        <div class="text-lg font-bold text-white mb-1">TPS Group</div>
+        <p class="text-slate-400">Empowering borderless innovation with Gemini AI</p>
+      </div>
+      <div class="text-center space-y-1">
+        <div class="font-bold text-white uppercase tracking-wider text-sm">CONTACT</div>
+        <div>Cristal71 Ban Pao, Lampang, Thailand</div>
+        <div>Email: contact@tpsgroup.com | Phone: +66 54 XXX XXX</div>
+        <div class="text-slate-500 pt-2">© 2026 TPS Group | Gemini Borderless World | All Rights Reserved</div>
+      </div>
+      <div class="md:text-right space-y-2">
+        <div class="font-bold text-white uppercase tracking-wider">FOLLOW US</div>
+        <div class="flex md:justify-end items-center gap-4 text-sm font-bold text-slate-300">
+          <a href="#" class="hover:text-cyan-400">Globe</a>
+          <a href="#" class="hover:text-cyan-400">in</a>
+          <a href="#" class="hover:text-cyan-400">🐦</a>
+          <a href="#" class="hover:text-cyan-400">G</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= LOGIN MODAL (Google OAuth จริง + Email) ================= -->
+  <div id="login-modal" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-white relative">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">✕</button>
+      <div class="flex items-center gap-2 text-xl font-bold mb-1">
+        <span class="text-cyan-400">✦</span> เข้าสู่ระบบ Plugin-Gemini
+      </div>
+      <p class="text-xs text-slate-400 mb-5">เข้าสู่ระบบเพื่อดูวิธีติดตั้ง โค้ด Plugin และใช้งาน AI</p>
+
+      <!-- ปุ่ม Google OAuth จริง (แสดงอัตโนมัติเมื่อใส่ GOOGLE_CLIENT_ID) -->
+      <div id="google-oauth-container" class="mb-3 flex justify-center"></div>
+
+      <!-- ปุ่มสำรองกรณีทดสอบก่อนใส่ Client ID -->
+      <button onclick="loginWithGoogleFallback()" class="w-full bg-white hover:bg-slate-200 text-slate-900 font-bold py-2.5 rounded-lg text-sm flex items-center justify-center gap-2 mb-4 transition">
+        <span class="text-blue-600 font-extrabold">G</span> เข้าสู่ระบบด้วย Google Account
+      </button>
+
+      <div class="relative flex py-2 items-center mb-4">
+        <div class="flex-grow border-t border-slate-700"></div>
+        <span class="flex-shrink mx-3 text-slate-500 text-xs">หรือเข้าสู่ระบบด้วย Email</span>
+        <div class="flex-grow border-t border-slate-700"></div>
+      </div>
+
+      <input type="email" id="modal-email" placeholder="กรอกอีเมลของคุณ..." class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 text-sm mb-3 focus:outline-none focus:border-cyan-400">
+      <button onclick="loginWithEmail()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition">
+        เชื่อมต่อด้วย Email
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let activeSystemPrompt = "";
+    let serverConfig = null;
+
+    // โหลดการตั้งค่าและรายการ Plugin ล่าสุดทันทีที่เปิดเว็บ
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('/api/plugin-gemini');
+        serverConfig = await res.json();
+        if (serverConfig.googleClientId && window.google) {
+          google.accounts.id.initialize({
+            client_id: serverConfig.googleClientId,
+            callback: handleGoogleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById('google-oauth-container'),
+            { theme: 'outline', size: 'large', width: 320 }
+          );
+        }
+      } catch (e) {}
+    });
+
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.remove('hidden');
+      document.getElementById('login-modal').classList.add('flex');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.add('hidden');
+      document.getElementById('login-modal').classList.remove('flex');
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      const res = await fetch('/api/plugin-gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'google_auth', credential: response.credential })
+      });
+      const data = await res.json();
+      if (data.status === 'connected') completeLogin(data.user);
+    }
+
+    async function loginWithGoogleFallback() {
+      const email = prompt("กรอกบัญชี Google Gmail ของคุณเพื่อเชื่อมต่อ:");
+      if (email && email.includes('@')) {
+        await submitEmailAuth(email);
+      }
+    }
+
+    async function loginWithEmail() {
+      const email = document.getElementById('modal-email').value.trim();
+      if (!email || !email.includes('@')) return alert('กรุณากรอกอีเมลให้ถูกต้องครับ');
+      await submitEmailAuth(email);
+    }
+
+    async function submitEmailAuth(email) {
+      try {
+        const res = await fetch('/api/plugin-gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'email_auth', email })
+        });
+        const data = await res.json();
+        completeLogin(data.user || { email });
+      } catch (e) {
+        completeLogin({ email });
+      }
+    }
+
+    async function completeLogin(user) {
+      currentUser = user;
+      localStorage.setItem('plugin_gemini_user', JSON.stringify(user));
+      closeLoginModal();
+
+      document.getElementById('guest-center-view').classList.add('hidden');
+      document.getElementById('logged-in-center-view').classList.remove('hidden');
+      document.getElementById('active-user-email').innerText = user.email;
+      document.getElementById('nav-login-btn').innerText = 'DASHBOARD';
+
+      // สร้างโค้ดติดตั้ง Plugin SDK ให้ผู้ใช้คัดลอก
+      const siteOrigin = window.location.origin;
+      document.getElementById('plugin-embed-code').innerText = 
+`<!-- Plugin-Gemini SDK (TPS Group Borderless Core) -->
+<script>
+async function callPluginGemini(promptText, options = {}) {
+  const response = await fetch("${siteOrigin}/api/plugin-gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: "${user.email}",
+      prompt: promptText,
+      modelVersion: options.model || "gemini-2.5-flash",
+      customSystemPrompt: options.systemPrompt || "",
+      publicApiUrl: options.publicApiUrl || "",
+      useGoogleSearch: options.googleSearch !== false
+    })
+  });
+  return await response.json();
+}
+<\/script>`;
+
+      await loadGitHubModules();
+      renderSavedChildAIs();
+    }
+
+    // ดึงรายการความสามารถจาก GitHub Repo (seperneng-spec/Plugin-Gemini) สดๆ
+    async function loadGitHubModules() {
+      const listEl = document.getElementById('github-plugin-list');
+      try {
+        const res = await fetch('https://raw.githubusercontent.com/seperneng-spec/Plugin-Gemini/main/plugins/manifest.json?t=' + Date.now());
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        listEl.innerHTML = data.modules.map(m => `
+          <li class="bg-slate-800/70 p-2 rounded border border-slate-700">
+            <span class="text-cyan-300 font-bold">${m.name}</span> — <span class="text-slate-400">${m.description}</span>
+          </li>
+        `).join('');
+      } catch (e) {
+        const fallback = (serverConfig && serverConfig.manifest && serverConfig.manifest.modules) || [
+          { name: 'Google Search Live', description: 'ค้นหาข้อมูลเรียลไทม์จาก Google ทั่วโลก' },
+          { name: 'Public API Bridge', description: 'เชื่อมต่อข้อมูลสาธารณะภายนอกเข้ากับ Gemini' },
+          { name: 'Child AI Spawner', description: 'สร้าง AI ตัวลูกเผยแพร่สาธารณะ' }
+        ];
+        listEl.innerHTML = fallback.map(m => `
+          <li class="bg-slate-800/70 p-2 rounded border border-slate-700">
+            <span class="text-cyan-300 font-bold">${m.name}</span> — <span class="text-slate-400">${m.description}</span>
+          </li>
+        `).join('');
+      }
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('plugin_gemini_user');
+      resetView();
+    }
+
+    function resetView() {
+      document.getElementById('logged-in-center-view').classList.add('hidden');
+      document.getElementById('guest-center-view').classList.remove('hidden');
+      document.getElementById('nav-login-btn').innerText = 'LOGIN';
+    }
+
+    function switchTab(tab) {
+      if (tab === 'docs') {
+        document.getElementById('panel-docs').classList.remove('hidden');
+        document.getElementById('panel-studio').classList.add('hidden');
+        document.getElementById('tab-docs').className = "bg-cyan-500 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg";
+        document.getElementById('tab-studio').className = "bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-lg";
+      } else {
+        document.getElementById('panel-docs').classList.add('hidden');
+        document.getElementById('panel-studio').classList.remove('hidden');
+        document.getElementById('tab-studio').className = "bg-cyan-500 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg";
+        document.getElementById('tab-docs').className = "bg-slate-800 text-slate-300 hover:text-white font-bold text-xs px-4 py-2 rounded-lg";
+      }
+    }
+
+    function copyPluginCode() {
+      const code = document.getElementById('plugin-embed-code').innerText;
+      navigator.clipboard.writeText(code);
+      alert('คัดลอกโค้ด Plugin-Gemini เรียบร้อยแล้วครับ!');
+    }
+
+    async function createChildAI() {
+      const aiName = document.getElementById('spawn-name').value.trim();
+      const systemPrompt = document.getElementById('spawn-prompt').value.trim();
+      const modelVersion = document.getElementById('model-version-select').value;
+      if (!aiName || !systemPrompt) return alert('กรุณากรอกชื่อและคำสั่งของ AI ครับ');
+
+      const saved = JSON.parse(localStorage.getItem('plugin_gemini_ais') || '[]');
+      saved.push({ name: aiName, prompt: systemPrompt, model: modelVersion });
+      localStorage.setItem('plugin_gemini_ais', JSON.stringify(saved));
+
+      try {
+        await fetch('/api/plugin-gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'spawn_ai', email: currentUser.email, aiName, systemPrompt, modelVersion })
+        });
+      } catch (e) {}
+
+      document.getElementById('spawn-name').value = '';
+      document.getElementById('spawn-prompt').value = '';
+      renderSavedChildAIs();
+    }
+
+    function renderSavedChildAIs() {
+      const saved = JSON.parse(localStorage.getItem('plugin_gemini_ais') || '[]');
+      const box = document.getElementById('user-ai-list');
+      if (!saved.length) {
+        box.innerHTML = '<div class="text-slate-500">ยังไม่มี AI ลูกที่สร้างไว้</div>';
+        return;
+      }
+      box.innerHTML = saved.map((ai, i) => `
+        <div onclick="selectChildAI(${i})" class="p-2 bg-slate-800 hover:bg-slate-700 rounded cursor-pointer border border-slate-700">
+          <div class="font-bold text-cyan-300">${ai.name}</div>
+          <div class="text-[10px] text-slate-400 truncate">${ai.prompt}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectChildAI(index) {
+      const saved = JSON.parse(localStorage.getItem('plugin_gemini_ais') || '[]');
+      const ai = saved[index];
+      if (!ai) return;
+      activeSystemPrompt = ai.prompt;
+      document.getElementById('current-ai-label').innerText = `AI ปัจจุบัน: ${ai.name}`;
+      if (ai.model) document.getElementById('model-version-select').value = ai.model;
+    }
+
+    async function runGeminiPlugin() {
+      const input = document.getElementById('studio-input');
+      const prompt = input.value.trim();
+      if (!prompt) return;
+
+      const chat = document.getElementById('studio-chat-box');
+      chat.innerHTML += `<div class="bg-cyan-950/60 border border-cyan-800/50 p-2.5 rounded-lg ml-10 text-right">${prompt}</div>`;
+      input.value = '';
+
+      try {
+        const res = await fetch('/api/plugin-gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prompt,
+            modelVersion: document.getElementById('model-version-select').value,
+            customSystemPrompt: activeSystemPrompt,
+            publicApiUrl: document.getElementById('public-api-url').value.trim(),
+            useGoogleSearch: document.getElementById('use-google-tools').checked
+          })
+        });
+        const data = await res.json();
+        chat.innerHTML += `<div class="bg-slate-800 p-2.5 rounded-lg mr-10 whitespace-pre-wrap">${data.reply || data.error}</div>`;
+      } catch (err) {
+        chat.innerHTML += `<div class="bg-rose-950/70 p-2.5 rounded-lg mr-10 text-rose-300">เกิดข้อผิดพลาดในการเชื่อมต่อ: ${err.message}</div>`;
+      }
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
 
